@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Test coverage
+.coverage
+
+# Local data
+data/
