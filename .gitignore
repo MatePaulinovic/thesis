@@ -134,5 +134,5 @@ dmypy.json
 # Local data
 data/
 
-# VS code 
+# VS code
 .vscode/
