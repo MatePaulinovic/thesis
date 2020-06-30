@@ -1,6 +1,6 @@
 import os
 
-from Thesis.similarity.computer import SimilarityResult
+from thesis.similarity.computer import SimilarityResult
 
 
 def save_similarity_result(filename: str, result: SimilarityResult) -> None:

@@ -1,13 +1,21 @@
 import logging
+from datetime import datetime
+import os
 
 def get_logger(name: str) -> logging.Logger:
     #TODO: add docstring
     # set up logging to file - see previous section for more details
+    current_time = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+    
+    if not os.path.isdir("./logs"):
+        os.mkdir("./logs")
+
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                         datefmt='%m-%d %H:%M',
-                        filename='./temp/thesis.log',
+                        filename='./logs/thesis_' + current_time + '.log',
                         filemode='a')
+
     # define a Handler which writes INFO messages or higher to the sys.stderr
     console = logging.StreamHandler()
     console.setLevel(logging.INFO)

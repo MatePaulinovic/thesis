@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 
-from Thesis.utils.signal_extractor import SignalExtractor
+from thesis.utils.signal_extractor import SignalExtractor
 
 
 class Preprocessor(ABC):

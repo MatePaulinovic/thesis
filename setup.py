@@ -6,7 +6,7 @@ import codecs
 import os
 import sys
 
-from Erevnitis import Erevnitis
+from thesis import Thesis
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -45,21 +45,21 @@ class PyTest(TestCommand):
 
 
 setup(
-    name='Erevnitis',
-    version=Erevnitis.__version__,
-    url='http://github.com/MatePaulinovic/Erevnitis/',
+    name='thesis',
+    version=Thesis.__version__,
+    url='http://github.com/MatePaulinovic/thesis/',
     license='MIT License',
     author='Mate Paulinovic',
     tests_require=['pytest'],
-    install_requires=read_requirements("/home/mate/Documents/Faks/Diplomski/Kod/EREVNITIS/Erevnitis/requirements.txt"),
+    #install_requires=read_requirements("/home/mate/Documents/Faks/Diplomski/Kod/EREVNITIS/Erevnitis/requirements.txt"),
     cmdclass={'test': PyTest},
     author_email='mate.paulinovic@fer.hr',
     description='Fast pathogen detection system based on next generation nucleotide sequencing',
     long_description=long_description,
-    packages=find_packages(), #['Erevnitis'],
+    packages=['thesis'], #find_packages('thesis'), #['Erevnitis'],
     include_package_data=True,
     platforms='any',
-    test_suite='Erevnitis.test.test_Erevnitis',
+    test_suite='thesis.test.test_thesis',
     classifiers = [
         'Programming Language :: Python',
         'Development Status :: 1 - Planning',

@@ -1,11 +1,12 @@
-from Thesis.utils.ioutil import save_similarity_result
-from Thesis.similarity.computer import ConstellationSimilarityComputer, LSHSimilarityComputer
-from Thesis.utils import constants
+from thesis.utils.ioutil import save_similarity_result, extract_file_name
+from thesis.similarity.computer import ConstellationSimilarityComputer, LSHSimilarityComputer
+from thesis.utils import constants
 import pickle as pp
 import numpy as np
 import sys
 import argparse
 
+__version__ = '0.0.1'
 __name__ == "__main__"
 # TODO: change database to fixed path
 
@@ -16,7 +17,7 @@ def parse_arguments() -> argparse.PARSER:
     # required arguments
     parser.add_argument('--ref', required=True, type=str,
                         help='File which contains the reference pipeline result.')
-    parser.add_argument('--read', required=True, type=str,
+    parser.add_argument('--read', required=True, type=str, nargs='+',
                         help='File which contains the read pipeline result.')
     parser.add_argument('--similarity', required=True, type=str,
                         help='Similarity type to use for comparison (constellation, lsh)')
@@ -31,7 +32,6 @@ def parse_arguments() -> argparse.PARSER:
 def main():
     args = parse_arguments()
     reference = pp.load(open(args.ref, 'rb'))
-    read = pp.load(open(args.read, 'rb'))
 
     similarity_computer = None
     if args.similarity == constants.SIMILARITY_CONSTELLATION:
@@ -40,11 +40,18 @@ def main():
         similarity_computer = LSHSimilarityComputer(reference, args.num_tables, args.threshold, args.required_votes)
     else:
         raise Exception("INVALID")
+    
+    reads = []
+    for r in args.read:
+        read = pp.load(open(r, 'rb'))
+        
+        similarity_result = similarity_computer.compute_similarity(read)
 
-    similarity_result = similarity_computer.compute_similarity(read)
-
-    print(similarity_result)
-    save_similarity_result(args.read + '_sim.txt', similarity_result)
+        print(similarity_result)
+        if args.similarity == constants.SIMILARITY_CONSTELLATION:
+            save_similarity_result(extract_file_name(r) + '_sim.txt', similarity_result)
+        else:
+            save_similarity_result(extract_file_name(r) + "{}_{}_{}".format(args.num_tables, args.required_votes, args.threshold) + "_sim.txt", similarity_result)
 
 
 if __name__ == "__main__":

@@ -5,10 +5,10 @@ import os
 import numpy as np
 import pywt
 
-from Thesis.utils import logging
-from Thesis.utils import array_util
-from Thesis.utils import constants
-from Thesis.utils import signal_extractor
+from thesis.utils import logging
+from thesis.utils import array_util
+from thesis.utils import constants
+from thesis.utils import signal_extractor
 
 logger = logging.get_logger(__name__)
 

@@ -1,1 +1,1 @@
-export PYTHONPATH=~/Documents/Faks/Diplomski/Kod/EREVNITIS/thesis
+export PYTHONPATH=~/git/thesis

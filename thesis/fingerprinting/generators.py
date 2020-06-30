@@ -6,7 +6,7 @@ from datasketch import MinHash, MinHashLSH
 from lsh import MinHashSignature
 from collections import defaultdict
 
-import Thesis.utils as utils
+import thesis.utils as utils
 
 logger = utils.logging.get_logger(__name__)
 
@@ -37,7 +37,7 @@ class ConstellationMapGenerator(FingerprintGenerator):
         self._target_zone_size = target_zone_size
         self._chain_length = chain_length
 
-    def generate_fingerprints(self, coefficients: np.ndarray, file_id: str) -> Tuple[List[Tuple[int, ...]], List[int]]:
+    def generate_fingerprints(self, coefficients: np.ndarray, file_id: str) -> dict:
         constellation_map = set()
 
         for i in range(0, coefficients.shape[1] - self._window_size, self._shift_size):
@@ -74,7 +74,7 @@ class ConstellationMapGenerator(FingerprintGenerator):
             fingerprint_dict[fingerprint].append((offsets[idx], file_id))
         fingerprint_dict = dict(fingerprint_dict)
 
-        return fingerprints, offsets
+        return fingerprint_dict
 
 
 class MinHashLSHGenerator(FingerprintGenerator):

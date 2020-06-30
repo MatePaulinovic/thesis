@@ -5,9 +5,9 @@ from typing import List, Tuple
 import numpy as np
 from datasketch import MinHash, MinHashLSH
 
-import Thesis.utils.logging as logging
+import thesis.utils.logging as logging
 
-logger = logging.get_logger(__name__)
+#logger = logging.get_logger(__name__)
 
 
 class SimilarityResult(Mapping):
@@ -66,6 +66,7 @@ class ConstellationSimilarityComputer():
 
         # fingerprint is tuple of form:  (f_a, f_p_1, t_p_1 - t_a, ...)
         # value is a list of tuples of form: [(anchor_absolute_offset, id)]
+        fngp_solved = 0
         for fingerprint, values in read.items():
             # ignore parameters of transformation
             if fingerprint == "params":
@@ -130,16 +131,16 @@ class LSHSimilarityComputer():
 
         for minhash, idx in read:
             _, read_offset = self._extract_id_offset(idx)
-            print("read_offset", read_offset)
+            #print("read_offset", read_offset)
 
             digests = self._separate_digest(minhash.digest(), len(self._database))
-            print("digests", digests)
+            #print("digests", digests)
 
             candidates = defaultdict(lambda: 0)
             for i, digest in enumerate(digests):
                 query_minhash = MinHash(hashvalues=digest)
                 votes = self._database[i].query(query_minhash)
-                print("votes", votes)
+                #print("votes", votes)
                 for v in votes:
                     candidates[v] += 1
 
@@ -147,7 +148,7 @@ class LSHSimilarityComputer():
                 vote_id, vote_offset = self._extract_id_offset(i)
                 coherency_counter[vote_id][vote_offset - read_offset] += 1
 
-        print("Coherency counter", coherency_counter)
+        #print("Coherency counter", coherency_counter)
         top_results = dict()
         for key, value in coherency_counter.items():
             results = sorted(value.items(), key=lambda x: x[1], reverse=True)[:self._top_results]

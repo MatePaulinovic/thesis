@@ -2,10 +2,10 @@ from typing import Optional, List
 import pickle as pp
 import argparse
 
-from Thesis.utils import logging, constants, ioutil
-from Thesis.fingerprinting.generators import FingerprintGenerator, ConstellationMapGenerator, MinHashLSHGenerator
-from Thesis.transforms.wavelet_transform import WaveletTransformator
-from Thesis.preprocess.preprocessor import Preprocessor, EmptyPreprocessor, TomboPreprocessor
+from thesis.utils import logging, constants, ioutil
+from thesis.fingerprinting.generators import FingerprintGenerator, ConstellationMapGenerator, MinHashLSHGenerator
+from thesis.transforms.wavelet_transform import WaveletTransformator
+from thesis.preprocess.preprocessor import Preprocessor, EmptyPreprocessor, TomboPreprocessor
 
 logger = logging.get_logger(__name__)
 
@@ -149,7 +149,7 @@ def main():
         return
     logger.info("Fingerprinter built")
 
-    if args.id == "":
+    if args.id is None:
         file_id = ioutil.extract_file_name(args.file)
     else:
         file_id = args.id

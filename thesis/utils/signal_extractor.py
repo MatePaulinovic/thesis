@@ -6,7 +6,7 @@ import numpy as np
 import h5py
 from Bio import SeqIO       # pylint: disable=import-error
 
-import Thesis.proto.signal_pb2 as signal_pb2
+import thesis.proto.signal_pb2 as signal_pb2
 
 
 class SignalExtractor():
